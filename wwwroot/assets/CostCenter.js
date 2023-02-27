@@ -33,7 +33,7 @@ $('#delete-btn').click(function () {
 
 
 function loadAllCostCenters() {
-    var url = "/CostCenter/GetAllCostCenters"
+    var url = "/CostCenter/GetAllCostCenter"
     table = $("#datatable-basic").DataTable({
 
         "searching": true,
@@ -52,10 +52,10 @@ function loadAllCostCenters() {
         //],
         "columns": [
             {
-                "data": "costcenterName"
+                "data": "ccName"
             },
             {
-                "data": "costcenterCode"
+                "data": "ccCode"
             },
             {
                 "render": function (data, type, full, meta) {
