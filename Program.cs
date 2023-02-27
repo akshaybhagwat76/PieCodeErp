@@ -28,7 +28,7 @@ builder.Services.AddScoped<IRegionMasterService, RegionMasterService>();
 builder.Services.AddScoped<IBranchMasterService, BranchMasterService>();
 builder.Services.AddScoped<IDepartmentMasterService, Departmentmasterservice>();
 builder.Services.AddScoped<ICompanyMasterService, CompanyMasterService>();
-builder.Services.AddScoped<ICompanyMasterService, CompanyMasterService>();
+builder.Services.AddScoped<ICostCenterMasterService, CostCenterService>();
 
 #endregion
 

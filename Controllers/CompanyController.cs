@@ -30,7 +30,7 @@ namespace PieCodeErp.Controllers
 
         public ActionResult Create()
         {
-            return View("ManageCompany", new AddBranchModel());
+            return View("ManageCompany", new AddCompanyModel());
         }
 
         public JsonResult AddOrUpdateCompany(AddCompanyModel CompanyVM)
