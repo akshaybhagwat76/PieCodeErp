@@ -1,0 +1,190 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1> Create Region </h1>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Toastr -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<form>
+
+<div class="mb-3">
+  <label for="CostCenter" class="form-label"></label>
+  <input type="text" class="form-control " id="CostCenter" placeholder="Enter cost center">
+  <span id="costErrorMsg" style="color:red;display:none;">Please enter branch</span>
+</div>
+<div class="mb-3">
+  <label for="Company" class="form-label">Company</label>
+  <input type="text" class="form-control" id="Company" placeholder="Enter Company">
+  <span id="companyErrorMsg" style="color:red;display:none;">Please enter branch</span>
+</div>
+<div class="mb-3">
+    <label for="Department" class="form-label">Department</label>
+  <input type="text" class="form-control" id="Department" placeholder="Enter Department">
+  <span id="departmentErrorMsg" style="color:red;display:none;">Please enter department</span>
+</div>
+<div class="mb-3">
+    <label for="Branch" class="form-label">Branch</label>
+  <input type="text" class="form-control" id="Branch" placeholder="Enter branch">
+  <span id="branchErrorMsg" style="color:red;display:none;">Please enter branch</span>
+
+</div>
+
+
+<div class="mb-3">
+
+
+    <button type="button" id="btnRegion" class="btn btn-primary mb-3">Create</button>
+    </div>
+ </form>
+
+ <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">CostCenter</th>
+      <th scope="col">Department</th>
+      <th scope="col">Branch</th>
+      <th scope="col">Company</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+   
+  </tbody>
+</table>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+<script>
+
+        
+      $.get("/Region/GetListRegions", function(data, status){
+        console.log("Data: " +    data);
+
+          for (var i = 0; i < data.length; i++) {
+              $('.table tbody').append("<tr> <td>"+data[i].company+"</td>"+"<td>"+data[i].branch+"</td>"+"<td>"+data[i].department+"</td> <td> "+data[i].costCenter+" </td>  <td><a attr-id="+data[i].id+" href='#'><i class='fas fa-trash-alt' style='font-size:15px;color:red'></i> </a> <a attr-id="+data[i].id+" class='deleteRegion'  href='#'> <i class='fa fa-edit' style='font-size:15px;color:red'></i></a></td> </tr>")
+          }
+   
+  }); 
+
+
+
+$('.deleteRegion').on('click', function() {
+    var id = $(this).attr('attr-id');
+    $.ajax({
+        type: 'POST',
+        url: '/Region/Delete',
+        data: {id:id},
+,
+        contentType: 'application/json',
+        dataType: "JSON",
+        success: function(r) {
+            toastr.success("Data inserted successfully");
+            
+            setTimeout(function(){
+                 location.href = "/Region/Index";
+            },3000) 
+        },
+        error: function(xhr, status, error) {           
+            var err = eval("(" + xhr.responseText + ")");
+            alert(err.Message);
+        }
+    });
+})
+   
+      
+
+
+toastr.options = {
+				'closeButton': true,
+				'debug': false,
+				'newestOnTop': false,
+				'progressBar': false,
+				'positionClass': 'toast-top-right',
+				'preventDuplicates': false,
+				'showDuration': '1000',
+				'hideDuration': '1000',
+				'timeOut': '5000',
+				'extendedTimeOut': '1000',
+				'showEasing': 'swing',
+				'hideEasing': 'linear',
+				'showMethod': 'fadeIn',
+				'hideMethod': 'fadeOut',
+			}
+		 
+   
+$('#btnRegion').on('click',function(e) {
+
+             
+
+    if ($('#CostCenter').val()=='') {
+        $('#costErrorMsg').show().fadeOut(1500);
+        e.preventDefault();
+        return false;
+
+
+    }   
+       if ($('#Company').val()=='') {
+        $('#companyErrorMsg').show().fadeOut(1500);
+        e.preventDefault();
+        return false;
+
+    } 
+      if ($('#Department').val()=='') {
+        $('#departmentErrorMsg').show().fadeOut(1500);
+        e.preventDefault();
+        return false;
+
+    }
+
+       if ($('#Branch').val()=='') {
+        $('#branchErrorMsg').show().fadeOut(1500);
+        e.preventDefault();
+        return false;
+
+    } 
+
+
+    var _region =  {
+        Company:$("#Company").val(),
+        Branch:$('#Branch').val(),
+        Department:$('#Department').val(),
+        CostCenter:$("#CostCenter").val()
+    }
+
+     $.ajax({
+        type: 'POST',
+        url: '/Region/Insert_data',
+        data: JSON.stringify(_region),
+        contentType: 'application/json',
+        dataType: "JSON",
+        success: function(r) {
+            toastr.success("Data inserted successfully");
+            $("#CostCenter").val('');
+            $("#Company").val('');
+            $("#Branch").val('');
+            $("#Department").val('');
+            setTimeout(function(){
+                 location.href = "/Region/Index";
+            },3000) 
+        },
+        error: function(xhr, status, error) {           
+            var err = eval("(" + xhr.responseText + ")");
+            alert(err.Message);
+        }
+    });
+
+  
+ 
+
+  
+    
+})
+
+
+  
+
+ 
+</script>

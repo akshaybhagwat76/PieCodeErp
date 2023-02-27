@@ -1,0 +1,116 @@
+﻿@model PieCodeERP.ViewModel.AddRegionModel
+@{
+    ViewData["Title"] = "Manage Region";
+}
+
+<div class="row">
+
+    <div class="col-xl-8 order-xl-1">
+        <div class="card">
+            <form id="myForm" action="javascript:;">
+                @Html.HiddenFor(model=>model.Id)
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <h3 class="mb-0">Manage Region</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <div class="pl-lg-4">
+                        @* Update was ok *@
+                        @if (!string.IsNullOrWhiteSpace(TempData["StatusMessage"] as string))
+                        {
+                            <!-- everything went ok -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div role="alert" class="alert alert-success alert-dismissible fade show">
+                                        @TempData["StatusMessage"]
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        @* Update has errors *@
+                        @if (!ViewData.ModelState.IsValid && ViewData.ModelState[string.Empty] != null)
+                        {
+                            <!-- errors -->
+                            @foreach (var error in @ViewData.ModelState[string.Empty]?.Errors)
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div role="alert" class="alert alert-warning alert-dismissible fade show">
+                                            <span>@error.ErrorMessage</span>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        @*         <div class="row">
+                        <div class="col-lg-6">
+                        <div class="form-group">
+                        <label class="form-control-label" for="input-username">Username</label>
+                        <input asp-for="Username" type="text" id="input-username" class="form-control" placeholder="Username" readonly="">
+                        </div>
+                        </div>
+                        <div class="col-lg-6">
+                        <div class="form-group">
+                        <label class="form-control-label" for="input-email">Email address</label>
+                        <input asp-for="Email" type="email" id="input-email" class="form-control" placeholder="jesse@example.com">
+                        </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-lg-12">
+                        <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Full name</label>
+                        <input asp-for="FullName" type="text" id="input-first-name" class="form-control" placeholder="First name">
+                        </div>
+                        </div>
+                        </div>*@
+                    </div>
+           
+                    <div class="pl-lg-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.RegionName,new {@class="form-control-label"})
+                                    @Html.EditorFor(model => model.RegionName, new { htmlAttributes = new { @class = "form-control required", @Placeholder = "Region Name" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.RegionCode,new {@class="form-control-label"})
+                                    @Html.EditorFor(model => model.RegionCode, new { htmlAttributes = new { @class = "form-control required", @Placeholder = "Region Code" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <div class="row align-items-center">
+                        <div class="col-12 text-center">
+                            <button type="submit" id="btn-submit" class="btn btn-md btn-primary">
+                                Save
+                            </button>
+                               <a href="/Region/Index" class="btn btn-default">Cancel</a>
+                                    <label id="lblError" class="inline"></label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+<script src="~/assets/ManageRegion.js" asp-append-version="true"></script>                        
+}
