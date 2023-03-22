@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PieCodeERP.Repo\PieCodeERP.Repo.csproj" />
     <ProjectReference Include="..\PieCodeERP.Service\PieCodeERP.Service.csproj" />
     <ProjectReference Include="..\PieCodeERP.ViewModel\PieCodeERP.ViewModel.csproj" />
   </ItemGroup>

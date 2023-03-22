@@ -18,21 +18,21 @@
         if (retval) {
             var data = {
                 id: $("#Id").val().trim(),
-                CompanyName: $("#CompanyName").val().trim(),
-                CompanyCode: $("#CompanyCode").val().trim(),
+                CostCenterName: $("#CostCenterName").val().trim(),
+                CostCenterCode: $("#CostCenterCode").val().trim(),
             }
             //StartProcess();
             $.ajax({
                 type: "POST",
-                url: "/Company/AddOrUpdateCompany",
-                data: { CompanyVM: data },
+                url: "/CostCenter/AddOrUpdateCostCenter",
+                data: { CostCenterVM: data },
                 success: function (data) {
                     if (!data.isSuccess) {
                         //StopProcess();
                         $("#lblError").addClass("error").text(data.errors.map(c => c.errorDescription).toString()).show();
                     }
                     else {
-                        window.location.href = '/Company/Index'
+                        window.location.href = '/CostCenter/Index'
                     }
                 }
             });

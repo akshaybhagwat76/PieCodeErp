@@ -1,12 +1,8 @@
 ﻿var table;
 $("document").ready(function () {
-    loadAllCompanys();
- 
-    // Display a success toast, with a title
-    Toast.fire({
-        icon: 'success',
-        title: 'Your Level is 3.'
-    })
+    loadAllCostCenters();
+    debugger
+  
 })
 $("#datatable-basic").on("click", "a#btn-delete", function () {
     var id = $(this).data('id');
@@ -17,7 +13,7 @@ $('#delete-btn').click(function () {
     var id = $('#deleteModal').data('id');
     $.ajax({
         type: "GET",
-        url: "/Company/DeleteCompany",
+        url: "/CostCenter/DeleteCostCenter",
         data: { id: id },
         success: function (response) {
             if (!response.isSuccess) {
@@ -36,8 +32,8 @@ $('#delete-btn').click(function () {
 });
 
 
-function loadAllCompanys() {
-    var url = "/Company/GetAllCompanies"
+function loadAllCostCenters() {
+    var url = "/CostCenter/GetAllCostCenter"
     table = $("#datatable-basic").DataTable({
 
         "searching": true,
@@ -56,17 +52,17 @@ function loadAllCompanys() {
         //],
         "columns": [
             {
-                "data": "companyName"
+                "data": "ccName"
             },
             {
-                "data": "companyCode"
+                "data": "ccCode"
             },
             {
                 "render": function (data, type, full, meta) {
-                    return ` <a href="/Company/Edit/` + full.CompanyId + `" data-id="` + full.CompanyId + `" class="btn btn-success btn-sm" title="Edit">
+                    return ` <a href="/CostCenter/Edit/` + full.costCenterId + `" data-id="` + full.costCenterId + `" class="btn btn-success btn-sm" title="Edit">
                                     <i class="fa fa-edit"></i>
                              </a>
-                             <a href="javascript:void(0)" id="btn-delete" data-id="`+ full.CompanyId + `" class="btn btn-danger btn-sm" title="Delete">
+                             <a href="javascript:void(0)" id="btn-delete" data-id="`+ full.costCenterId + `" class="btn btn-danger btn-sm" title="Delete">
                                     <i class="fa fa-trash"></i>
                              </a>`;
                 }

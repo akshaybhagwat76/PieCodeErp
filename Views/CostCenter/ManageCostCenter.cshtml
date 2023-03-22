@@ -1,0 +1,62 @@
+﻿@model PieCodeERP.ViewModel.AddCostCenterModel
+@{
+    ViewData["Title"] = "Manage CostCenter";
+}
+
+<div class="row">
+
+    <div class="col-xl-8 order-xl-1">
+        <div class="card">
+            <form id="myForm" action="javascript:;">
+                @Html.HiddenFor(model=>model.Id)
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <h3 class="mb-0">Manage CostCenter</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <div class="pl-lg-4">
+                       
+                    </div>
+           
+                    <div class="pl-lg-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CostCenterName,new {@class="form-control-label"})
+                                    @Html.EditorFor(model => model.CostCenterName, new { htmlAttributes = new { @class = "form-control required", @Placeholder = "CostCenter Name" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CostCenterCode,new {@class="form-control-label"})
+                                    @Html.EditorFor(model => model.CostCenterCode, new { htmlAttributes = new { @class = "form-control required", @Placeholder = "CostCenter Code" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <div class="row align-items-center">
+                        <div class="col-12 text-center">
+                            <button type="submit" id="btn-submit" class="btn btn-md btn-primary">
+                                Save
+                            </button>
+                               <a href="/CostCenter/Index" class="btn btn-default">Cancel</a>
+                                    <label id="lblError" class="inline"></label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+<script src="~/assets/ManageCostCenter.js" asp-append-version="true"></script>                        
+}
